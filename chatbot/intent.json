@@ -1,0 +1,150 @@
+{
+    "intents": [
+      {
+        "tag": "hi",
+        "patterns": ["hi", "hey", "hello", "good morning", "good afternoon", "hi there"],
+        "responses": ["Hello!", "Hi!", "Hey!", "Hi there!"],
+        "context_set": ""
+      },
+      {
+        "tag": "how_are_you",
+        "patterns": ["how are you", "how is life", "how are things"],
+        "responses": ["Fine... how are you?", "Pretty well, how are you?", "Fantastic, how are you?"],
+        "context_set": ""
+      },
+      {
+        "tag": "what_are_you_doing",
+        "patterns": ["what are you doing", "what is going on", "what is up"],
+        "responses": ["Nothing much", "About to go to sleep", "Can you guess?"],
+        "context_set": ""
+      },
+      {
+        "tag": "what_is_a_star",
+        "patterns": ["what is a star?", "what does a star do?"],
+        "responses": ["The Agency for Science, Technology and Research (A*STAR) is Singapore's lead public sector R&D agency. As a Science and Technology Organisation, A*STAR bridges the gap between academia and industry."],
+        "context_set": ""
+      },
+      {
+        "tag": "what_is_ois",
+        "patterns": ["what is ois?", "what does ois do?"],
+        "responses": ["Optics & Imaging Systems or in short OIS conducts research and development in optics, photonics, imaging and data processing with the aim of developing and deploying new technologies."],
+        "context_set": ""
+      },
+      {
+        "tag": "when_does_nicks_occur",
+        "patterns": ["when does nicks occur?", "under what conditions do nicks occur?"],
+        "responses": ["Nicks often occur during handling, transportation, or due to accidental contact with sharp or hard objects."],
+        "context_set": ""
+      },
+      {
+        "tag": "when_does_dents_occur",
+        "patterns": ["when does dents occur?", "in which situations are dents likely to happen?"],
+        "responses": ["Dents typically result from impact or pressure applied on the material, often during manufacturing, handling, or heavy usage."],
+        "context_set": ""
+      },
+      {
+        "tag": "when_does_scratches_occur",
+        "patterns": ["when does scratches occur?", "when are scratches most likely to form?"],
+        "responses": ["Scratches can occur when the surface comes into contact with abrasive materials or through improper handling and transportation."],
+        "context_set": ""
+      },
+      {
+        "tag": "when_does_pittings_occur",
+        "patterns": ["when does pittings occur?", "when are pittings most likely to develop?"],
+        "responses": ["Pittings usually develop over time due to chemical reactions, especially in corrosive environments, or as a result of manufacturing flaws."],
+        "context_set": ""
+      },
+      {
+        "tag": "where_does_nicks_occur",
+        "patterns": ["where does nicks occur?", "where are nicks commonly found?"],
+        "responses": ["Nicks are commonly found on edges, corners, or exposed surfaces that experience frequent contact."],
+        "context_set": ""
+      },
+      {
+        "tag": "where_does_dents_occur",
+        "patterns": ["where does dents occur?", "which areas are prone to dents?"],
+        "responses": ["Dents occur on flat or slightly curved surfaces that may be vulnerable to impact."],
+        "context_set": ""
+      },
+      {
+        "tag": "where_does_scratches_occur",
+        "patterns": ["where does scratches occur?", "on which surfaces do scratches typically appear?"],
+        "responses": ["Scratches can appear on any exposed surface, particularly on smooth, polished areas."],
+        "context_set": ""
+      },
+      {
+        "tag": "where_does_pittings_occur",
+        "patterns": ["where does pittings occur?", "where are pittings often located?"],
+        "responses": ["Pittings often found on metallic or alloy surfaces, especially in areas exposed to moisture or chemicals."],
+        "context_set": ""
+      },
+      {
+        "tag": "why_does_nicks_occur",
+        "patterns": ["why does nicks occur?", "what causes nicks to form?"],
+        "responses": ["Nicks are caused by accidental impact, dropping, or scraping against hard surfaces."],
+        "context_set": ""
+      },
+      {
+        "tag": "why_does_dents_occur",
+        "patterns": ["why does dents occur?", "what factors lead to the occurrence of dents?"],
+        "responses": ["Dents result from impact forces exceeding the material’s resistance, sometimes due to equipment or manual handling errors."],
+        "context_set": ""
+      },
+      {
+        "tag": "why_does_scratches_occur",
+        "patterns": ["why does scratches occur?", "why do scratches develop?"],
+        "responses": ["Scratches are caused by abrasive contact, friction, or improper cleaning tools that damage the surface."],
+        "context_set": ""
+      },
+      {
+        "tag": "why_does_pittings_occur",
+        "patterns": ["why does pittings occur?", "what are common causes of pittings?"],
+        "responses": ["Pittings: Often due to corrosion, especially if the material is exposed to water, salts, or acidic environments that cause localized deterioration."],
+        "context_set": ""
+      },
+      {
+        "tag": "how_to_manage_nicks",
+        "patterns": ["how to manage nicks?", "what are effective ways to handle nicks?"],
+        "responses": ["Nicks can be managed by reful handling, use of protective covers, and inspecting for early signs to avoid worsening."],
+        "context_set": ""
+      },
+      {
+        "tag": "how_to_manage_dents",
+        "patterns": ["how to manage dents?", "how can dents be effectively managed?"],
+        "responses": ["Dents are managed by implementing protective barriers, using impact-resistant materials, and careful handling practices."],
+        "context_set": ""
+      },
+      {
+        "tag": "how_to_manage_scratches",
+        "patterns": ["how to manage scratches?", "what methods work best for managing scratches?"],
+        "responses": ["Scratches are prevented by using soft or non-abrasive materials during handling and cleaning, and applying coatings to protect surfaces."],
+        "context_set": ""
+      },
+      {
+        "tag": "how_to_manage_pittings",
+        "patterns": ["how to manage pittings?", "what are recommended approaches for handling pittings?"],
+        "responses": ["Pittings are managed by having regular maintenance, corrosion-resistant coatings, and minimizing exposure to corrosive elements can help control pittings."],
+        "context_set": ""
+      },
+      {
+        "tag": "why_use_real_time_ai_detection",
+        "patterns": ["why use real-time ai detection for defect inspection?", "what are the benefits of using ai for real-time defect inspection?", "why is real-time ai defect detection important in quality control?", "how does real-time ai improve defect inspection processes?", "what advantages does ai bring to real-time defect detection?", "why choose ai for real-time inspection of defects?"],
+        "responses": [
+          "Real-time AI detection helps identify defects immediately as they occur, allowing for faster corrective actions and reducing the chances of defective products moving further along the production line. It enhances efficiency, reduces downtime, and improves overall product quality by quickly detecting and addressing issues.",
+          "AI-based real-time inspection offers several benefits, including higher accuracy in defect identification, consistency in results, reduced labor costs, and faster inspection speeds. AI can handle large data volumes and identify subtle defects that might be missed in manual inspection, improving the overall reliability of the quality control process.",
+          "Real-time AI defect detection is crucial in quality control as it ensures immediate identification of issues, minimizing waste, rework, and the cost associated with defective products. By integrating AI into real-time inspection, manufacturers can maintain high standards, quickly adapt to changes, and meet customer expectations for quality.",
+          "AI improves defect inspection by automating the detection process, enhancing speed, accuracy, and repeatability. Real-time AI can analyze visual data from cameras or sensors, recognize complex patterns, and detect even minute defects instantly. This reduces human error, accelerates the inspection cycle, and enables high-volume production lines to maintain strict quality control without compromising on speed.",
+          "AI brings many advantages, including the ability to continuously learn from new data, thus improving detection algorithms over time. AI-powered systems can also work 24/7 without fatigue, quickly identify patterns in defect occurrences, and provide insights that help optimize the manufacturing process. Additionally, AI systems are scalable and can handle multiple product types or defect types without needing substantial adjustments.",
+          "Choosing AI for real-time defect inspection provides businesses with a robust, scalable solution that can evolve as production needs change. AI allows for rapid identification and categorization of defects, adapting to variations in materials or production conditions. It also enables predictive insights, helping to preemptively address issues before they become significant defects, ultimately boosting productivity and quality assurance."
+        ],
+        "context_set": ""
+      },
+      {
+        "tag": "how_to_use_offline_detection",
+        "patterns": ["how to use the offline detection?"],
+        "responses": ["1. Input the image of the defects that you want to predict. \n 2. Press the 'Upload Image' button. \n 3. Our algorithm will process the image, detect and classify defects in real-time."],
+        "context_set": ""
+      }
+    ]
+  }
+  

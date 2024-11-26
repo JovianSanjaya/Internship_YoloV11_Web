@@ -1,0 +1,1388 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&family=Montserrat:wght@700&family=Open+Sans&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu',sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+
+
+body{
+    background-color: #fff;
+}
+
+nav{
+    padding: 0 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.nav-logo{
+    margin-top: 20px;
+}
+
+.astarlogo{
+    width: 230px;
+    display: flex;
+    border-style: none;
+}
+
+
+.nav-links{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 3rem ;
+    margin-top: 30px;
+
+}
+
+.link a{
+    position: relative;
+    padding-bottom: 0.75rem;
+    color:#083484;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Poppins',sans-serif;
+}
+
+.link a::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #083484;
+    transition: all 0.3s ease;
+
+}
+
+.link a:hover::after{
+    width: 70%;
+}
+
+nav .login button{
+    padding: 8px 14px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+nav .login button#signup{
+    background-color: #083484;
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 14px;
+    padding: 15px 20px;
+    margin-top: 25px;
+
+}
+
+
+
+header {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    justify-items: center; /* Horizontally center the grid items */
+    align-items: center;   /* Vertically center the grid items */
+    height: 80vh;         /* Make the header take the full height of the viewport */
+    width: 100%;           /* Make sure the header takes the full width */
+}
+
+
+header .left {
+    text-align: center; /* Ensures text is centered within the left section */
+}
+
+header .left h1 {
+    font-size: 80px;
+    color: #083484; /* Ensure color is set for readability */
+    font-weight: 700; /* Make the heading more prominent */
+    text-align: center; /* Center-align the heading */
+}
+
+header .left .second-line {
+    font-size: 80px;
+    color: #083484;
+    font-weight: 400;
+    margin-top: 20px; /* Add margin between the first and second lines */
+}
+
+header .left p {
+    margin-top: 35px;
+    font-stretch: ultra-condensed;
+    color: #777;
+    font-size: 18px; /* Added font-size for better readability */
+    max-width: 80%; /* Limit the width of the paragraph for better control */
+    margin-left: auto; /* Align to the center with margins */
+    margin-right: auto;
+    line-height: 1.6; /* Improve text readability */
+}
+
+header .left a {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content in the button */
+    background: #083484;
+    width: 150px;
+    padding: 8px;
+    border-radius: 60px;
+    text-decoration: none; /* Ensure link styles don’t interfere */
+    margin-top: 20px; /* Add some space from the paragraph */
+    transition: background-color 0.3s ease;
+}
+
+header .left a:hover {
+    background-color: #0056b3; /* Change color on hover for interactivity */
+}
+
+header .left a i {
+    background-color: #fff;
+    font-size: 24px;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+header .left a span {
+    color: #fff;
+    margin-left: 22px;
+}
+
+
+
+
+/*------------------------------------------------------------------------------*/
+
+/* 3 cards */
+
+.container {
+    padding:30px;
+    text-align: center;
+    overflow: auto;
+}
+
+
+.buffer{
+    margin-top: 27rem;
+}
+
+
+.sub-header {
+    font-size: 4em;
+    text-align: center;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    margin-top: 30rem; /* Space above the header */
+    color: #083484;
+    font-family: 'Montserrat',sans-serif;
+}
+
+.sub-header.visible {
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+.offline {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.offline .card {
+    padding: 3rem 2rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+}
+
+.offline .card.visible {
+    opacity: 1; /* Show the card */
+    transform: translateY(0) ; /* Move back to original position */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow */
+
+}
+
+#input-image, #output-image {
+    max-width: 100%; /* Image fits within the card width */
+    height: auto;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+
+
+
+.offline .card .content {
+    flex: 1;
+    margin-bottom: 2rem;
+}
+
+
+
+.offline .card h3{
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 500;
+    border-bottom: 2px solid ;
+    text-align: center;
+    color: #083484; 
+
+}
+
+
+.offline .card .title-card{
+    color: #083484; 
+
+}
+
+
+
+
+.offline .card p {
+    color: #000;
+    margin-bottom: 0.75rem;
+}
+
+.offline .card p i {
+    color: #ccc;
+    font-size: 1.2rem;
+    margin-right: 0.3rem;
+}
+
+
+
+
+
+/* HTML: <div class="loader"></div> */
+/* Loader container */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background */
+    z-index: 1000; /* Ensure loader appears above other content */
+}
+
+/* Loader style */
+#loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid lightblue;
+    border-right-color: #083484;
+    animation: l2 1s infinite linear;
+}
+
+@keyframes l2 {
+    to { transform: rotate(1turn); }
+}
+
+
+
+
+
+
+.card .btn1{
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    transition: 0.15s ease;
+    cursor: pointer;
+    margin-bottom: 5rem;
+
+}
+
+.card .btn1:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+  }
+
+
+.card .btn2{
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    transition: 0.15s ease;
+    cursor: pointer;
+    margin-bottom: 5rem;
+    margin-top: 4rem;
+    margin-bottom: 5.3rem;
+
+}
+
+.card .btn2:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+}
+
+
+.card .btn3{
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    transition: 0.15s ease;
+    cursor: pointer;
+    margin-bottom: 5rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+
+}
+
+.card .btn3:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+  }
+
+
+
+
+/*------------------------------------------------------------------------------*/
+
+/* upload an image to apply object detecton */
+
+.card label{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+}
+
+
+/*------------------------------------------------------------------------------*/
+
+/* Full-width card for Area Distribution Chart */
+
+.container-card-full {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-full {
+    width: 97%;
+    padding: 3rem 2rem; /* Adjust if needed */
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid transparent; /* Consider changing if necessary */
+    transition: all 0.3s ease;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+}
+
+.card-full.visible {
+    opacity: 1; /* Show the card */
+    transform: translateY(0); /* Move back to original position */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow */
+}
+
+
+.card-full h3 {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #083484;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #083484;
+    padding-bottom: 1rem;
+    text-align: center;
+   
+}
+
+.card-full #areaChart {
+    width: 100%;
+    height: auto;
+    max-width: 1000px; /* Optional max-width for canvas */
+    margin-top: 1rem;
+}
+
+
+
+
+.card-full .title-card {
+    text-align: center; /* Center the text horizontally */
+    display: block; /* Ensure it behaves like a block element */
+    margin: 0 auto; /* Optional: Center the element if width is specified */
+    color: #083484; /* Maintain consistency with your theme */
+    margin-top: 3rem;
+}
+
+
+
+.card-full label{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.btn-fulls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-full .btn3{
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    transition: 0.15s ease;
+    cursor: pointer;
+    margin-top: 3rem;
+
+}
+
+.card-full .btn3:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+  }
+
+
+
+
+/* .charts-container {
+    display: flex;                   
+    flex-direction: row;            
+    justify-content: space-around;  
+    align-items: flex-start;        
+    margin: 20px;                 
+    margin-top: 50px;
+} */
+
+.charts-container {
+    display: grid;                  /* Use grid layout */
+    gap: 1em;                       /* Space between grid items (charts) */
+    margin: 20px;                    /* Optional margin for spacing */
+    margin-top: 50px;                /* Top margin */
+}
+
+
+
+.chart-wrapper {
+    height: 300px;                  /* Set the height of each chart */
+    width: 400px;                   /* Set the width of each chart */
+    border: 1px solid #ccc;         /* Optional border for better visibility */
+    padding: 10px;                  /* Optional padding */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+}
+
+canvas {
+    max-width: 100%;                /* Ensure canvas fits within wrapper */
+    max-height: 100%;               /* Ensure canvas fits within wrapper */
+}
+
+/*------------------------------------------------------------------------------*/
+
+
+/* Full-width card for Confidence */
+
+
+.container-card-full-confidence {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-full-confidence{
+    width: 97%;
+    padding: 3rem 2rem; /* Adjust if needed */
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid transparent; /* Consider changing if necessary */
+    transition: all 0.3s ease;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s     ease, transform 1.5s ease; /* Animation */
+    margin-top:2rem;
+}
+
+.card-full-confidence.visible {
+    opacity: 1; /* Show the card */
+    transform: translateY(0); /* Move back to original position */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow */
+}
+
+
+.card-full-confidence h3 {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #083484;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #083484;
+    padding-bottom: 1rem;
+    text-align: center;
+   
+}
+
+.card-full-confidence #areaChart {
+    width: 100%;
+    height: auto;
+    max-width: 1000px; /* Optional max-width for canvas */
+    margin-top: 1rem;
+}
+
+
+
+
+.card-full-confidence .title-card {
+    text-align: center; /* Center the text horizontally */
+    display: block; /* Ensure it behaves like a block element */
+    margin: 0 auto; /* Optional: Center the element if width is specified */
+    color: #083484; /* Maintain consistency with your theme */
+    margin-top: 3rem;
+}
+
+
+.card-full-confidence label{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.btn-fulls{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-full-confidence .btn4{
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    transition: 0.15s ease;
+    cursor: pointer;
+    margin-top: 3rem;
+
+}
+
+.card-full-confidence .btn4:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+  }
+
+
+
+
+/* .charts-container {
+    display: flex;                   
+    flex-direction: row;            
+    justify-content: space-around;  
+    align-items: flex-start;        
+    margin: 20px;                 
+    margin-top: 50px;
+} */
+
+.charts-container {
+    display: grid;                  /* Use grid layout */
+    gap: 1em;                       /* Space between grid items (charts) */
+    margin: 20px;                    /* Optional margin for spacing */
+    margin-top: 50px;                /* Top margin */
+}
+
+
+
+.chart-wrapper {
+    height: 300px;                  /* Set the height of each chart */
+    width: 400px;                   /* Set the width of each chart */
+    border: 1px solid #ccc;         /* Optional border for better visibility */
+    padding: 10px;                  /* Optional padding */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+}
+
+canvas {
+    max-width: 100%;                /* Ensure canvas fits within wrapper */
+    max-height: 100%;               /* Ensure canvas fits within wrapper */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------------------------------------------------*/
+
+/* Chatbot*/
+
+.chatbot-container{
+    padding:30px;
+    text-align: center;
+    overflow: auto;
+}
+
+.chatbot-sub-header{
+    font-size: 4em;
+    text-align: center;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    margin-top: 20rem;
+    color: #083484;
+    font-family: 'Montserrat',sans-serif;
+}
+
+.chatbot-sub-header.visible {
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+
+.chatbot-text{
+    width: 80%;
+    margin: auto;
+}
+
+.chatbot-text p{
+    margin-top: 35px;
+    font-stretch: ultra-condensed;
+    color: #777;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+    text-align: center;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    font-size: 18px;
+
+}
+
+.chatbot-text p.visible{
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+.btn5{
+   
+    opacity: 0; /* Start hidden */
+    transform: translateY(30px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */ 
+}
+
+.btn5.visible{
+    opacity: 1; /* Show the card */
+    transform: translateY(0) ; /* Move back to original position */
+
+    margin-bottom: 5rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow */
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    cursor: pointer;
+  
+
+}
+
+.btn5:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+  }
+
+/*------------------------------------------------------------------------------*/
+
+/* realtime chart  */
+
+.realtime-container{
+    padding:30px;
+    text-align: center;
+    overflow: auto;
+}
+
+.realtime-sub-header{
+    font-size: 4em;
+    text-align: center;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    margin-top: 20rem;
+    color: #083484;
+    font-family: 'Montserrat',sans-serif;
+}
+
+.realtime-sub-header.visible {
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+
+.realtime-text p{
+    margin-top: 35px;
+    font-stretch: ultra-condensed;
+    color: #777;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+    text-align: center;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    font-size: 18px;
+    margin-bottom: 4rem;
+
+}
+
+.realtime-text p.visible{
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+
+
+
+
+
+
+
+.realtime-chart-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 3 equal columns by default */
+    gap: 20px; /* Space between grid items */
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+}
+
+.realtime-chart-container.visible {
+    opacity: 1; /* Show the container */
+    transform: translateY(0); /* Move back to original position */
+}
+
+
+
+
+
+
+
+.realtime-text2 p{
+    font-stretch: ultra-condensed;
+    color: #777;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    font-size: 18px;
+    margin-bottom: 4rem;
+    margin-top: 3em;
+
+}
+
+.realtime-text2 p.visible{
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+ /* Centering Wrapper */
+ .center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 10vh; /* Takes full height of the viewport */
+    padding: 20px;
+}
+
+/* Styling the form container */
+.form-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+}
+
+.form-container.visible{
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+/* Form Title */
+.form-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #083484;
+}
+
+/* Form labels */
+.form-container label {
+    font-weight: bold;
+    color: #666;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* Input Fields */
+.form-container input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Input field focus */
+.form-container input[type="text"]:focus {
+    border-color: #083484;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Submit Button */
+.form-container button[type="submit"] {
+    margin-bottom: 5rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow */
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    cursor: pointer;
+}
+
+/* Button hover effect */
+.form-container button[type="submit"]:active {
+    translate: 0 0.225em;
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+}
+
+/* Canvas for the chart */
+#realtimedefectChart {
+    margin-top: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.chart-wrapper-realtime {
+    height: 550px;                  /* Set the height of each chart */
+    width: 1000px;                   /* Set the width of each chart */
+    border: 1px solid #ccc;         /* Optional border for better visibility */
+    padding: 10px;                  /* Optional padding */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+    margin: 0 auto;                 /* Center the container horizontally */
+}
+
+
+
+
+
+/*------------------------------------------------------------------------------*/
+
+/* footer */
+
+footer{
+    background-color: #083484;
+    color: #fff;
+    padding: 50px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 620px;
+}
+
+footer h3{
+    font-size: 30px;
+}
+
+footer .right{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 26px;
+}
+
+footer .right .links{
+    display: flex;
+    gap: 30px;
+}
+
+footer .right .links a{
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+footer .right .links a:hover{
+    color: #fff;
+}
+
+footer .right .social{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+footer .right .social i{
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+footer .right .social i:hover{
+    color: #304ffe;
+}
+
+footer .right p{
+    font-size: 13px;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+/*------------------------------------------------------------------------------*/
+
+/* responsiveness */
+
+@media screen and (min-width: 1824px) {
+    .charts-container {
+        grid-template-columns: repeat(4, 1fr);  /* 3 columns for larger screens */
+        justify-items: center;             /* Center items horizontally */
+        align-items: center;               /* Center items vertically */
+        text-align: center;                /* Optional: Center text if needed */
+    }
+
+    
+}
+
+@media screen and (min-width: 1368px) and (max-width: 1824px) {
+    .charts-container {
+        grid-template-columns: repeat(3, 1fr);  /* 2 columns for medium screens */
+        justify-items: center;             /* Center items horizontally */
+        align-items: center;               /* Center items vertically */
+        text-align: center;                /* Optional: Center text if needed */
+    }
+
+    
+}
+
+@media screen and (min-width: 968px) and (max-width: 1367px) {
+    .charts-container {
+        grid-template-columns: repeat(2, 2fr);  /* 2 columns for medium screens */
+        justify-items: center;             /* Center items horizontally */
+        align-items: center;               /* Center items vertically */
+        text-align: center;                /* Optional: Center text if needed */
+    }
+}
+
+@media screen and (max-width: 967px) {
+    .charts-container {
+        grid-template-columns: 1fr;         /* 1 column for small screens */
+        justify-items: center;             /* Center items horizontally */
+        align-items: center;               /* Center items vertically */
+        text-align: center;                /* Optional: Center text if needed */
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 966px) {
+    .chart-wrapper {
+        height: 200px;                  /* Set the height of each chart */
+        width: 300px;                   /* Set the width of each chart */
+    }
+}
+
+
+@media screen and (min-width: 401px) and (max-width: 600px) {
+    .chart-wrapper {
+        height: 160px;                  /* Set the height of each chart */
+        width: 260px;                   /* Set the width of each chart */
+    }
+
+    .card-full .btn3{
+        font-size: 16px;
+    }
+
+    .card-full-confidence .btn4{
+        font-size: 15px;
+    }
+ 
+    
+}
+
+@media screen and (min-width: 100px) and (max-width: 400px) {
+   
+    .chart-wrapper {
+        height: 100px;                  /* Set the height of each chart */
+        width: 200px;                   /* Set the width of each chart */
+    }
+
+    .card-full .btn3{
+        font-size: 16px;
+    }
+
+    .card-full-confidence .btn4{
+        font-size: 14px;
+        
+    }
+ 
+    
+}
+
+
+
+
+
+
+@media screen and (max-width: 1850px) {
+    .realtime-chart-container {
+        display: grid; /* Use grid layout */
+        grid-template-columns: repeat(2, 1fr); /* 2 equal columns for tablets */
+        justify-items: center; /* Horizontally center the content */
+        align-items: center; /* Vertically center the content */
+        gap: 15px; /* Optional gap between items */
+        width: 100%; /* Full width of the parent */
+        padding: 20px; /* Optional padding */
+    }
+    
+  
+
+}
+
+
+@media screen and (max-width: 1400px) {
+    
+    header {
+        grid-template-columns: repeat(1,1fr);
+    }
+    
+    header .astarlogo{
+        grid-area: 1/1/2/2;
+    }
+
+    footer{
+        padding: 100px 40px;
+    }
+
+    footer h3{
+        font-size: 26px;
+    }
+
+}
+
+
+@media screen and (width<1400px) {
+    
+ 
+    .card-full{
+        width: 96%; 
+     }
+
+     .card-full-confidence{
+        width: 96%; 
+     }
+
+    
+}
+
+
+
+@media screen and (max-width: 1200px) {
+    
+    .nav-links{
+        display: none;
+    }
+ 
+    footer .links a{
+        font-size: 15px;
+    }
+
+    .offline{
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .card-full{
+        width: 95%; 
+     }
+
+     .card-full-confidence{
+        width: 95%;
+        
+     }
+
+     .chart-wrapper-realtime {
+        width: 90%; /* Use 90% of the parent container's width on smaller screens */
+        max-width: 850px; /* Limit the size to 500px on smaller screens */
+    }
+
+    #realtimedefectChart {
+        width: 100%;
+        height: auto;
+    }
+
+ 
+ 
+
+}
+
+
+
+
+
+@media screen and (max-width: 992px) {
+    
+    
+
+    footer{
+        flex-direction: column;
+        padding: 60px 40px;
+    }
+
+    footer h3{
+        margin-bottom: 40px;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    footer .right{
+        width: 100%;
+        align-items: center;
+    }
+
+    .offline{
+        grid-template-columns: repeat(1,1fr);
+    }
+
+    .realtime-chart-container {
+        display: grid; /* Use grid layout */
+        grid-template-columns: repeat(1, 1fr); /* Single column for smaller screens */
+        justify-items: center; /* Center the iframes horizontally within each grid cell */
+        align-items: center; /* Center the iframes vertically within each grid cell */
+        padding: 20px; /* Optional padding */
+    }
+    
+    .realtime-chart-container iframe {
+        height: 220px; /* Smaller height for small screens */
+        width: 100%; /* Make iframe responsive to the grid's width */
+        max-width: 340px; /* Limit iframe max width */
+        border: 1px solid #cccccc; /* Border styling */
+    }
+
+
+}
+
+
+
+@media screen and (max-width: 768px) {
+    
+   
+    footer{
+        padding: 40px 20px;
+    }
+
+    footer h3{
+        margin-bottom: 40px;
+        font-size: 27px;
+        text-align: center;
+    }
+
+    .chart-wrapper-realtime {
+        width: 90%; /* Use 90% of the parent container's width on smaller screens */
+        max-width: 650px; /* Limit the size to 500px on smaller screens */
+        max-height: 600px
+    }
+
+    #realtimedefectChart {
+        width: 100%;
+        height: auto;
+    }
+
+
+  
+
+}
+
+
+
+
+@media screen and (max-width: 576px) {
+    
+   button#signup{
+    display: none;
+   }
+   header{
+    margin-top: 5em;
+   }
+
+    footer h3{
+        margin-bottom: 40px;
+        font-size: 23px;
+        text-align: center;
+    }
+
+    .card-full{
+        width: 87%; 
+     }
+
+     .card-full-confidence{
+        width: 87%;
+        
+     }
+
+     
+
+    .sub-header{
+        font-size: 3em;
+    }
+
+    header .left h1 {
+        font-size: 60px;
+    }
+
+    header .left .second-line {
+        font-size: 60px;
+    }
+    
+    header .left p{
+        font-size: 15px;
+    }
+
+    .chatbot-sub-header{
+        font-size: 3em
+    }
+
+    .chatbot-text p{
+        font-size: 16px;
+    }
+
+    .realtime-sub-header{
+        font-size: 3em;
+    }
+ 
+    .realtime-text p{
+        font-size: 16px;
+    }
+
+    .chart-wrapper-realtime {
+        width: 90%; /* Use 90% of the parent container's width on smaller screens */
+        max-width: 350px; /* Limit the size to 500px on smaller screens */
+        max-height: 300px
+    }
+
+    #realtimedefectChart {
+        width: 100%;
+        height: auto;
+    }
+
+
+
+}
+
+

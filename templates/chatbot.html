@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot Interface</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+
+    <style>
+        /* Custom scrollbar styles */
+        .scrollbar-thumb-blue {
+            background-color:  #083484;
+            
+        }
+        .scrollbar-thumb-rounded {
+            border-radius: 10px;
+        }
+        .scrollbar-track-blue-lighter {
+            background-color: #f4f7fa;
+        }
+        .scrolling-touch {
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div x-data="chatApp()" class="flex flex-col h-screen bg-white">
+        <!-- Chat Messages -->
+        <div id="messages" class="flex-1 p-2 sm:p-6 justify-between flex flex-col h-screen bg-white overflow-hidden">
+            <div class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                <template x-for="(message, key) in messages" :key="key">
+                    <div>
+                        <div class="flex items-end" :class="message.from === 'bot' ? '' : 'justify-end'">
+                            <div class="flex flex-col space-y-2 text-md leading-tight max-w-lg mx-2" :class="message.from === 'bot' ? 'order-2 items-start' : 'order-1 items-end'">
+                                <div>
+                                    <span 
+                                        class="px-4 py-3 rounded-xl inline-block" 
+                                        :class="message.from === 'bot' ? 'rounded-bl-none text-white' : 'rounded-br-none text-white'"
+                                        :style="message.from === 'bot' ? 'background-color: #083484;' : 'background-color: #f05c0c;'" 
+                                        x-html="message.text"
+                                    ></span>
+                                </div>
+                                <!-- FAQ Buttons inside the chat bubble -->
+                                <div x-show="shouldShowFaqButtons(key)" class="grid grid-cols-2 gap-4 mt-4">
+                                    <button @click="handleFaqClick('What is A Star?')"  style="background-color: #083484;" class="flex-1 bg-blue-500 text-white rounded-full h-14 px-4 py-2">1. What is A Star?</button>
+                                    <button @click="handleFaqClick('What is OIS?')"  style="background-color: #083484" class="flex-1 bg-blue-500 text-white rounded-full h-14 px-4 py-2">2. What is OIS?</button>
+                                    <button @click="handleFaqClick('how to use the offline detection?')"  style="background-color: #083484" class="flex-1 bg-blue-500 text-white rounded-full h-14 px-4 py-2">3. How to use offline detection?</button>
+                                    <button @click="handleFaqClick('why use real-time ai detection for defect inspection?')"  style="background-color: #083484" class="flex-1 bg-blue-500 text-white rounded-full h-14 px-4 py-2">4. Why use real-time for inspection?</button>
+                                </div>
+                                
+                                
+                            </div>
+                            <img :src="message.from === 'bot' ? '/static/images/person.png' : '/static/images/user.png'" alt="" class="object-cover w-8 h-8 rounded-full" :class="message.from === 'bot' ? 'order-1' : 'order-2'">
+                        </div>
+                    </div>
+                </template>
+                <div x-show="botTyping" style="display: none;">
+                    <div class="flex items-end">
+                        <div class="flex flex-col space-y-2 text-md leading-tight mx-2 order-2 items-start">
+                            <div>
+                                <img src="https://support.signal.org/hc/article_attachments/360016877511/typing-animation-3x.gif" alt="..." class="w-16 ml-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <!-- Input Section -->
+        <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0" style="transform: translateY(-20px);">  <!-- Added transform style -->
+            <div class="relative flex">
+                <input type="text" placeholder="Say something..." autocomplete="off" autofocus="true" 
+                       @keydown.enter="sendMessage($event.target)" 
+                       class="text-md w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-5 pr-16 bg-gray-100 border-2 border-gray-200 rounded-full py-2" 
+                       style="border-color: #7a7b7d" 
+                       x-ref="input" />
+                <div class="absolute right-2 items-center inset-y-0 hidden sm:flex">
+                    <button type="button" 
+                            class="inline-flex items-center justify-center rounded-full h-8 w-8 transition duration-200 ease-in-out text-white" 
+                            style="background-color: #7a7b7d" 
+                            @click.prevent="sendMessage($refs.input)">
+                        <i class="mdi mdi-arrow-right text-xl leading-none"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        
+    
+    </div>
+
+    <script>
+        function chatApp() {
+            return {
+                messages: [{ from: 'bot', text: 'Hi, how can I assist you today? Below is the Frequently Asked Questions.' }],
+                botTyping: false,
+
+                // Method to send message
+                async sendMessage(inputElement) {
+                    const userMessage = inputElement.value;
+                    if (userMessage.trim() !== '') {
+                        this.messages.push({ from: 'user', text: userMessage });
+                        inputElement.value = '';
+                        this.botTyping = true;
+
+                        const response = await this.getBotResponse(userMessage);
+                        this.messages.push({ from: 'bot', text: response });
+                        this.botTyping = false;
+
+                        // Scroll to the latest message
+                        this.scrollToBottom();
+                    }
+                },
+
+                // Method to fetch bot response
+                async getBotResponse(userMessage) {
+                    const response = await fetch('/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message: userMessage })
+                    });
+                    const data = await response.json();
+                    return data.reply;
+                },
+
+                // Method to handle FAQ clicks
+                handleFaqClick(question) {
+                    this.sendMessage({ value: question });
+                },
+
+                // Method to scroll to the bottom of the chat
+                scrollToBottom() {
+                    const chatBox = document.getElementById('messages');
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                },
+
+                // Method to check if FAQ buttons should be shown
+                shouldShowFaqButtons(key) {
+                    // Show FAQ buttons only for the first bot or user message
+                    return key === 0 && (this.messages[key].from === 'bot' || this.messages[key].from === 'user');
+                }
+            };
+        }
+    </script>
+</body>
+</html>

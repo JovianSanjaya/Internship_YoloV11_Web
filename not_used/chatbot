@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/output.css">
+    <link rel="icon" href="/static/astartitlelogo.png" type="image/icon type">
+
+    <title>Document</title>
+</head>
+<body>
+    <!-- component -->
+<div x-data="chatBot()">
+    <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen bg-white">
+        <div id="messages" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+            <template x-for="(message, key) in messages">
+                <div>
+                    <div class="flex items-end" :class="message.from=='bot'?'':'justify-end'">
+                        <div class="flex flex-col space-y-2 text-md leading-tight max-w-lg mx-2" :class="message.from=='bot'?'order-2 items-start':'order-1 items-end'">
+                            <div>
+                                <span class="px-4 py-3 rounded-xl inline-block" :class="message.from=='bot'?'rounded-bl-none bg-gray-100 text-gray-600':'rounded-br-none bg-blue-500 text-white'" x-html="message.text"></span>
+                            </div>
+                        </div>
+                        <img :src="message.from=='bot'?'/static/images/person.png':'/static/images/user.png'" alt="" class="object-cover w-8 h-8 rounded-full" :class="message.from=='bot'?'order-1':'order-2'">
+                    </div>
+                </div>
+            </template>
+            <div x-show="botTyping" style="display: none;">
+                <div class="flex items-end">
+                    <div class="flex flex-col space-y-2 text-md leading-tight mx-2 order-2 items-start">
+                        <div><img src="https://support.signal.org/hc/article_attachments/360016877511/typing-animation-3x.gif" alt="..." class="w-16 ml-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
+            <div class="relative flex">
+                <input type="text" placeholder="Say something..." autocomplete="off" autofocus="true" @keydown.enter="updateChat($event.target)" class="text-md w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-5 pr-16 bg-gray-100 border-2 border-gray-200 focus:border-blue-500 rounded-full py-2" x-ref="input" />
+                <div class="absolute right-2 items-center inset-y-0 hidden sm:flex">
+                    <button type="button" class="inline-flex items-center justify-center rounded-full h-8 w-8 transition duration-200 ease-in-out text-white bg-blue-500 hover:bg-blue-600 focus:outline-none" @click.prevent="updateChat($refs.input)">
+                        <i class="mdi mdi-arrow-right text-xl leading-none"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css');</style>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.5.0/dist/alpine.min.js"></script>
+<script>
+function chatBot() {
+    return {
+        prompts: [
+            ["hi", "hey", "hello", "good morning", "good afternoon", "hi there"],
+            ["how are you", "how is life", "how are things"],
+            ["what are you doing", "what is going on", "what is up"],
+            
+            ["what is a star?", "what does a star do?"],
+            ["what is ois?", "what does ois do?"],
+
+            ["when does nicks occur?", "under what conditions do nicks occur?"],
+            ["when does dents occur?", "in which situations are dents likely to happen?"],
+            ["when does scratches occur?", "when are scratches most likely to form?"],
+            ["when does pittings occur?", "when are pittings most likely to develop?"],
+
+            ["where does nicks occur?", "where are nicks commonly found?"],
+            ["where does dents occur?", "which areas are prone to dents?"],
+            ["where does scratches occur?", "on which surfaces do scratches typically appear?"],
+            ["where does pittings occur?", "where are pittings often located?"],
+
+            ["why does nicks occur?", "what causes nicks to form?"],
+            ["why does dents occur?", "what factors lead to the occurrence of dents?"],
+            ["why does scratches occur?", "why do scratches develop?"],
+            ["why does pittings occur?", "what are common causes of pittings?"],
+
+            ["how to manage nicks?", "what are effective ways to handle nicks?"],
+            ["how to manage dents?", "how can dents be effectively managed?"],
+            ["how to manage scratches?", "what methods work best for managing scratches?"],
+            ["how to manage pittings?", "what are recommended approaches for handling pittings?"],
+
+            ["why use real-time ai detection for defect inspection?", "what are the benefits of using ai for real-time defect inspection?", "why is real-time ai defect detection important in quality control?", 
+            "how does real-time ai improve defect inspection processes?", "what advantages does ai bring to real-time defect detection?", "why choose ai for real-time inspection of defects?"],
+
+            ["how to use the offline detection?"]
+
+          
+        ],
+
+        replies: [
+            ["Hello!", "Hi!", "Hey!", "Hi there!"],
+            ["Fine... how are you?", "Pretty well, how are you?", "Fantastic, how are you?"],
+            ["Nothing much", "About to go to sleep", "Can you guess?"],
+
+            ["The Agency for Science, Technology and Research (A*STAR) is Singapore's lead public sector R&D agency. As a Science and Technology Organisation, A*STAR bridges the gap between academia and industry."],
+
+            ["Optics & Imaging Systems or in short OIS conducts research and development in optics, photonics, imaging and data processing with the aim of developing and deploying new technologies."],
+
+            ["Nicks often occur during handling, transportation, or due to accidental contact with sharp or hard objects."],
+            ["Dents typically result from impact or pressure applied on the material, often during manufacturing, handling, or heavy usage."],
+            ["Scratches can occur when the surface comes into contact with abrasive materials or through improper handling and transportation."],
+            ["Pittings usually develop over time due to chemical reactions, especially in corrosive environments, or as a result of manufacturing flaws."],   
+            
+            ["Nicks commonly found on edges, corners, or exposed surfaces that experience frequent contact."],
+            ["Dents occur on flat or slightly curved surfaces that may be vulnerable to impact."],
+            ["Scratches can appear on any exposed surface, particularly on smooth, polished areas."],   
+            ["Pittings often found on metallic or alloy surfaces, especially in areas exposed to moisture or chemicals."],   
+
+            ["Nicks are caused by accidental impact, dropping, or scraping against hard surfaces."],
+            ["Dents result from impact forces exceeding the material’s resistance, sometimes due to equipment or manual handling errors."],
+            ["Scratches are caused by abrasive contact, friction, or improper cleaning tools that damage the surface."],   
+            ["Pittings: Often due to corrosion, especially if the material is exposed to water, salts, or acidic environments that cause localized deterioration."],   
+
+            ["Nicks can be managed by reful handling, use of protective covers, and inspecting for early signs to avoid worsening."],
+            ["Dents are managed by implementing protective barriers, using impact-resistant materials, and careful handling practices."],
+            ["Scratches are prevented by using soft or non-abrasive materials during handling and cleaning, and apply coatings to protect surfaces."],   
+            ["Pittings are managed by having regular maintenance, corrosion-resistant coatings, and minimizing exposure to corrosive elements can help control pittings."],   
+
+            ["Real-time AI detection helps identify defects immediately as they occur, allowing for faster corrective actions and reducing the chances of defective products moving further along the production line. It enhances efficiency, reduces downtime, and improves overall product quality by quickly detecting and addressing issues.", 
+
+            "AI-based real-time inspection offers several benefits, including higher accuracy in defect identification, consistency in results, reduced labor costs, and faster inspection speeds. AI can handle large data volumes and identify subtle defects that might be missed in manual inspection, improving the overall reliability of the quality control process.",
+
+            "Real-time AI defect detection is crucial in quality control as it ensures immediate identification of issues, minimizing waste, rework, and the cost associated with defective products. By integrating AI into real-time inspection, manufacturers can maintain high standards, quickly adapt to changes, and meet customer expectations for quality.",
+
+            "AI improves defect inspection by automating the detection process, enhancing speed, accuracy, and repeatability. Real-time AI can analyze visual data from cameras or sensors, recognize complex patterns, and detect even minute defects instantly. This reduces human error, accelerates the inspection cycle, and enables high-volume production lines to maintain strict quality control without compromising on speed.",
+
+            "AI brings many advantages, including the ability to continuously learn from new data, thus improving detection algorithms over time. AI-powered systems can also work 24/7 without fatigue, quickly identify patterns in defect occurrences, and provide insights that help optimize the manufacturing process. Additionally, AI systems are scalable and can handle multiple product types or defect types without needing substantial adjustments.",
+
+            "Choosing AI for real-time defect inspection provides businesses with a robust, scalable solution that can evolve as production needs change. AI allows for rapid identification and categorization of defects, adapting to variations in materials or production conditions. It also enables predictive insights, helping to preemptively address issues before they become significant defects, ultimately boosting productivity and quality assurance."],
+
+            ["1. Input the image of the defects that you want to predict. \n 2. Press the 'Upload Image' button to ensure that the image is uploade \n  3. Press the 'Apply Detection Button' to allow the model to do inference on the image \n 4. To generate Frequency Graph, Press the 'Generate Frequency Graph' button to generate a bar chart that shows total number of each defect occur in the image. \n 5. To generate Size Distribution Graph, Press the 'Generate Size Distribution Graph' button to show the distribution of the size of each defect"],
+
+        ],
+
+        alternative: ["Sorry I do not know what you mean. For more information please visit  <a href=\"https://www.a-star.edu.sg\" target=\"_blank\" style=\"text-decoration:underline;\">https://www.a-star.edu.sg</a> ", "I’m not quite sure what you mean.For more information please visit  <a href=\"https://www.a-star.edu.sg\" target=\"_blank\" style=\"text-decoration:underline;\">https://www.a-star.edu.sg</a>", "I’m not sure I understand what you're saying.For more information please visit  <a href=\"https://www.a-star.edu.sg\" target=\"_blank\" style=\"text-decoration:underline;\">https://www.a-star.edu.sg</a>", "Can you please explain that again? For more information please visit  <a href=\"https://www.a-star.edu.sg\" target=\"_blank\" style=\"text-decoration:underline;\">https://www.a-star.edu.sg</a>", "Can you rephrase that? I’m not sure I follow. For more information please visit  <a href=\"https://www.a-star.edu.sg\" target=\"_blank\" style=\"text-decoration:underline;\">https://www.a-star.edu.sg</a> "],
+        botTyping: false,
+        messages: [{
+            from: 'bot',
+            text: 'Hi there! Welcome to OIS Chat Bot. How can I help you today?' 
+        }],
+        output: function(input) {
+            let product;
+
+            // Regex remove non word/space chars
+            // Trim trailing whitespce
+            // Remove digits - not sure if this is best
+            // But solves problem of entering something like 'hi1'
+
+            let text = input.toLowerCase().replace(/[^\w\s]/gi, "").replace(/[\d]/gi, "").trim();
+            text = text
+                .replace(/ a /g, " ") // 'tell me a story' -> 'tell me story'
+                .replace(/i feel /g, "")
+                .replace(/whats/g, "what is")
+                .replace(/please /g, "")
+                .replace(/ please/g, "")
+                .replace(/r u/g, "are you");
+
+            if (this.compare(this.prompts, this.replies, text)) {
+                // Search for exact match in `prompts`
+                product = this.compare(this.prompts, this.replies, text);
+            } else if (text.match(/thank/gi)) {
+                product = "You're welcome!"
+            } else if (text.match(/(corona|covid|virus)/gi)) {
+                // If no match, check if message contains `coronavirus`
+                product = this.coronavirus[Math.floor(Math.random() * this.coronavirus.length)];
+            } else {
+                // If all else fails: random this.alternative
+                product = this.alternative[Math.floor(Math.random() * this.alternative.length)];
+            }
+
+            // Update DOM
+            this.addChat(input, product);
+        },
+        compare: function(promptsArray, repliesArray, string) {
+            let reply;
+            let replyFound = false;
+            for (let x = 0; x < promptsArray.length; x++) {
+                for (let y = 0; y < promptsArray[x].length; y++) {
+                    if (promptsArray[x][y] === string) {
+                        let replies = repliesArray[x];
+                        reply = replies[Math.floor(Math.random() * replies.length)];
+                        replyFound = true;
+                        // Stop inner loop when input value matches this.prompts
+                        break;
+                    }
+                }
+                if (replyFound) {
+                    // Stop outer loop when reply is found instead of interating through the entire array
+                    break;
+                }
+            }
+            if (!reply) {
+                for (let x = 0; x < promptsArray.length; x++) {
+                    for (let y = 0; y < promptsArray[x].length; y++) {
+                        if (this.levenshtein(promptsArray[x][y], string) >= 0.75) {
+                            let replies = repliesArray[x];
+                            reply = replies[Math.floor(Math.random() * replies.length)];
+                            replyFound = true;
+                            // Stop inner loop when input value matches this.prompts
+                            break;
+                        }
+                    }
+                    if (replyFound) {
+                        // Stop outer loop when reply is found instead of interating through the entire array
+                        break;
+                    }
+                }
+            }
+            return reply;
+        },
+        levenshtein: function(s1, s2) {
+            var longer = s1;
+            var shorter = s2;
+            if (s1.length < s2.length) {
+                longer = s2;
+                shorter = s1;
+            }
+            var longerLength = longer.length;
+            if (longerLength == 0) {
+                return 1.0;
+            }
+            return (longerLength - this.editDistance(longer, shorter)) / parseFloat(longerLength);
+        },
+        editDistance: function(s1, s2) {
+            s1 = s1.toLowerCase();
+            s2 = s2.toLowerCase();
+
+            var costs = new Array();
+            for (var i = 0; i <= s1.length; i++) {
+                var lastValue = i;
+                for (var j = 0; j <= s2.length; j++) {
+                    if (i == 0)
+                        costs[j] = j;
+                    else {
+                        if (j > 0) {
+                            var newValue = costs[j - 1];
+                            if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                                newValue = Math.min(Math.min(newValue, lastValue),
+                                    costs[j]) + 1;
+                            costs[j - 1] = lastValue;
+                            lastValue = newValue;
+                        }
+                    }
+                }
+                if (i > 0)
+                    costs[s2.length] = lastValue;
+            }
+            return costs[s2.length];
+        },
+        addChat: function(input, product) {
+
+            // Add user message
+            this.messages.push({
+                from: 'user',
+                text: input
+            });
+
+            // Keep messages at most recent
+            this.scrollChat();
+
+            // Fake delay to seem "real"
+            setTimeout(() => {
+                this.botTyping = true;
+                this.scrollChat();
+            }, 1000)
+
+            // add bit message with Fake delay to seem "real"
+            setTimeout(() => {
+                this.botTyping = false;
+                this.messages.push({
+                    from: 'bot',
+                    text: product
+                });
+                this.scrollChat();
+            }, ((product.length / 10) * 1000) + (Math.floor(Math.random() * 2000) + 1500))
+
+        },
+        scrollChat: function() {
+            const messagesContainer = document.getElementById("messages");
+            messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
+            setTimeout(() => {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
+            }, 100);
+        },
+        updateChat: function(target) {
+            if (target.value.trim()) {
+                this.output(target.value.trim());
+                target.value = '';
+            }
+        }
+    }
+}
+</script>
+</body>
+</html>
+
+

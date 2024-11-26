@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/static/images/astartitlelogo.png" type="image/icon type">
+
+
+  <title>Login Page</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+    h2{
+        color: #083484;
+    }
+    .login-container {
+      width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      text-align: center;
+    }
+    input[type="text"], input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #f05c0c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+        filter: brightness(0.85); 
+    }
+    .message {
+      margin-top: 10px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Login Page</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
+
+      if (username === "ois" && password === "ois") {
+        message.style.color = "green";
+        message.textContent = "Login successful!";
+        // Redirect to index.html on successful login
+        window.location.href = "index.html";
+      } else {
+        message.style.color = "red";
+        message.textContent = "Invalid username or password.";
+      }
+    }
+  </script>
+
+</body>
+</html>
