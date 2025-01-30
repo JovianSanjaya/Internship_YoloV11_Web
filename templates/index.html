@@ -17,6 +17,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.2/dist/socket.io.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 </head>
 <body>
@@ -32,6 +34,7 @@
             <li id = "link1" class = "link"><a href="#">OFFLINE DETECTION</a></li>
             <li id = "link3" class = "link"><a href="#">CHATBOT</a></li>
             <li id = "link4" class = "link"><a href="#">REAL TIME CHART</a></li>
+            <li id = "link5" class = "link"><a href="#">IMAGE STITCHING</a></li>
             <li id = "link2" class = "link"><a href="#">CONTACT US</a></li>
 
 
@@ -253,6 +256,49 @@
             <canvas id="realtimedefectChart" style="display: none;"></canvas>
         </div>
 
+     </section>
+
+
+
+
+
+     
+     <section class="stitching-container">
+
+        <p class="stitching-sub-header">Image Stitching</p>
+
+        <div class="wrapper">
+            <div class="box">
+                <div class="input-bx">
+                    <h2 class="upload-area-title">Upload File</h2>
+                    <form action="">
+                        <input type="file" id="upload" accept="image/*" hidden multiple>
+                        <label for="upload" class="uploadlabel">
+                            <span><i class="fa fa-cloud-upload"></i></span>
+                            <p>Click To Upload</p>
+                        </label>
+                    </form>
+                </div>
+
+                <div id="filewrapper">
+                    <h3 class="uploaded">Uploaded Documents</h3>
+                </div>
+                
+                <div class="submitBtnInputStitchingContainer">
+                    <button type="submit" class="submitBtnInputStitching">Submit</button>
+                    <button type="button" class="deleteAllBtn">Refresh</button>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="resultContainer">
+            <h3>Result:</h3>
+            <div class="imageContainer">
+                <img id="stitchedImage" style="display: none;">
+            </div>
+        </div>
+    
 
      </section>
 
@@ -260,26 +306,26 @@
 
 
     
-   <footer>
-        <h3>Agency for Science, Technology and Research (A*STAR)</h3>
-        <div class="right">
-            <div class="links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Cooperation</a>
-                <a href="#">Sponsorship</a>
-                <a href="#">Contact Us</a>
+    <footer>
+            <h3>Agency for Science, Technology and Research (A*STAR)</h3>
+            <div class="right">
+                <div class="links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cooperation</a>
+                    <a href="#">Sponsorship</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div class="social">
+                    <a href="https://www.instagram.com/astarsg/"><i class='bx bxl-instagram' style='color:#fffdfd'></i></a>
+                    <a href="https://www.facebook.com/ASTARSG/"><i class='bx bxl-facebook-square' style='color:#fffdfd'></i></a>
+                    <a href="https://www.linkedin.com/company/astarsg/"><i class='bx bxl-linkedin' style='color:#fffdfd' ></i></a>
+                    <a href="https://www.youtube.com/channel/UCcyl37Tw2p4eGnvpuPRFbzQ"><i class='bx bxl-youtube' style='color:#fffdfd'></i></a>
+                </div>
+                <p>©2024, Agency for Science, Technology and Research (A*STAR).</p>
             </div>
-            <div class="social">
-                <a href="https://www.instagram.com/astarsg/"><i class='bx bxl-instagram' style='color:#fffdfd'></i></a>
-                <a href="https://www.facebook.com/ASTARSG/"><i class='bx bxl-facebook-square' style='color:#fffdfd'></i></a>
-                <a href="https://www.linkedin.com/company/astarsg/"><i class='bx bxl-linkedin' style='color:#fffdfd' ></i></a>
-                <a href="https://www.youtube.com/channel/UCcyl37Tw2p4eGnvpuPRFbzQ"><i class='bx bxl-youtube' style='color:#fffdfd'></i></a>
-            </div>
-            <p>©2024, Agency for Science, Technology and Research (A*STAR).</p>
-        </div>
-    </footer>
+        </footer>
 
-    <script src="/static/scripts.js" type="module"></script>  
+        <script src="/static/scripts.js" type="module"></script>  
 
 
 </body>

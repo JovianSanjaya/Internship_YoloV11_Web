@@ -6,7 +6,7 @@ import { getDatabase, ref as dbRef, set } from "https://www.gstatic.com/firebase
 
 
 const firebaseConfig = {
-    apiKey: String(process.env.FIREBASE_KEY),
+    apiKey: "AIzaSyBYYHgbI13ckuX7eoHji0YggOkgcvAvZnI",
     authDomain: "sp-a-star-internship.firebaseapp.com",
     databaseURL: "https://sp-a-star-internship-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "sp-a-star-internship",
@@ -42,6 +42,7 @@ const link2 = document.getElementById("link2");
 const link3 = document.getElementById("link3");
 const link4 = document.getElementById("link4");
 const signup = document.getElementById("signup");
+const link5 = document.getElementById("link5");
 
 link1.addEventListener('click',() => {
     scrollToElement('.buffer');
@@ -63,6 +64,9 @@ link4.addEventListener('click', ()=>{
     scrollToElement('.realtime-sub-header')
 });
 
+link5.addEventListener('click', ()=>{
+    scrollToElement('.stitching-sub-header')
+});
 
 
 
@@ -71,16 +75,58 @@ link4.addEventListener('click', ()=>{
 
 
 
-//display image
+// //display image
+// function displayImage(event) {
+//     const image = document.getElementById('input-image');
+//     image.src = URL.createObjectURL(event.target.files[0]);
+//     image.onload = () => {
+//         URL.revokeObjectURL(image.src); 
+//     }
+// }
+
+// window.displayImage = displayImage;
+
+
+
+// Function to display the image from a file input or clipboard
 function displayImage(event) {
     const image = document.getElementById('input-image');
-    image.src = URL.createObjectURL(event.target.files[0]);
-    image.onload = () => {
-        URL.revokeObjectURL(image.src); 
+
+    // Check if files are selected or pasted
+    const file = event.target.files ? event.target.files[0] : null; // If it's from input files
+    if (file) {
+        image.src = URL.createObjectURL(file); // If file input, create object URL
+        image.onload = () => {
+            URL.revokeObjectURL(image.src); // Clean up the object URL after loading
+        };
+        image.style.display = "block"; // Show image when it's ready
     }
 }
 
-window.displayImage = displayImage;
+// Listen for the paste event (clipboard image paste)
+document.addEventListener('paste', function (event) {
+    const clipboardItems = event.clipboardData.items;
+    
+    // Look for image data in the clipboard
+    for (let i = 0; i < clipboardItems.length; i++) {
+        const item = clipboardItems[i];
+
+        if (item.type.indexOf('image') === 0) {
+            const file = item.getAsFile(); // Get the image file from clipboard
+
+            const image = document.getElementById('input-image');
+            image.src = URL.createObjectURL(file); // Create object URL from the clipboard image
+            image.onload = () => {
+                URL.revokeObjectURL(image.src); // Clean up the object URL after loading
+            };
+            image.style.display = "block"; // Show image when it's ready
+        }
+    }
+});
+
+window.displayImage = displayImage; // Expose displayImage globally for use
+
+
 
 
 
@@ -105,7 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const realtimeText2 = document.querySelector('.realtime-text2 p'); // need the p
     const formContainer = document.querySelector('.form-container'); 
+    const chartWrapperRealTime = document.querySelector('.chart-wrapper-realtime'); 
 
+    const stitchingHeader = document.querySelector('.stitching-sub-header'); 
+    const stitchingWrapper = document.querySelector('.wrapper'); 
+
+    const stitchingResult = document.querySelector('.resultContainer')
 
 
 
@@ -171,6 +222,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(fullCardConfidence){
         observer.observe(fullCardConfidence)
+    }
+
+    if(chartWrapperRealTime){
+        observer.observe(chartWrapperRealTime)
+    }
+
+    if(stitchingHeader){
+        observer.observe(stitchingHeader)
+    }
+
+    if(stitchingWrapper){
+        observer.observe(stitchingWrapper)
+    }
+
+    if(stitchingResult){
+        observer.observe(stitchingResult)
     }
 
 });
@@ -693,4 +760,177 @@ document.getElementById('ipForm').addEventListener('submit', function(event) {
     })
 
 
+});
+
+
+
+// Declare input outside the load event listener to make it globally accessible
+const input = document.getElementById("upload"); // Global declaration
+const filewrapper = document.getElementById("filewrapper");
+const submitButton = document.querySelector(".submitBtnInputStitching");
+const stitchedImage = document.getElementById("stitchedImage");
+
+let selectedFiles = [];
+
+//stitching
+window.addEventListener("load",()=>{
+
+    input.addEventListener("change",(e)=>{
+        let fileName = e.target.files[0].name;
+        let filetype = e.target.value.split(".").pop();
+        fileshow(fileName,filetype);
+    })
+
+    const fileshow=(fileName,filetype)=>{
+        const showfileboxElem = document.createElement("div");
+        showfileboxElem.classList.add("showfilebox");
+        const leftElem = document.createElement("div");
+        leftElem.classList.add("left");
+        const fileTypeElem = document.createElement("span");
+        fileTypeElem.classList.add("filetype");
+        fileTypeElem.innerHTML=filetype;
+        leftElem.append(fileTypeElem);
+        const filetitleElem = document.createElement("h3");
+        filetitleElem.innerHTML=fileName;
+        leftElem.append(filetitleElem);
+        showfileboxElem.append(leftElem);
+        const rightElem = document.createElement("div");
+        rightElem.classList.add("right");
+        showfileboxElem.append(rightElem);
+        const crossElem = document.createElement("span");
+        crossElem.innerHTML="&#215;";
+        rightElem.append(crossElem);
+        filewrapper.append(showfileboxElem);
+
+        crossElem.addEventListener("click",()=>{
+            filewrapper.removeChild(showfileboxElem);
+            
+        })
+    }
+
+})
+
+
+
+
+
+
+
+// Capture selected files
+input.addEventListener("change", function (event) {
+    // Append all selected files to the `selectedFiles` array
+    selectedFiles = selectedFiles.concat(Array.from(event.target.files)); // Concatenate the new files to the existing array
+    console.log(selectedFiles); // Debugging to check files are being added correctly
+});
+
+// Handle submit button click
+submitButton.addEventListener("click", async function () {
+    // Make sure more than one file is selected
+    if (selectedFiles.length < 2) {
+        alert("Please upload at least two images.");
+        return;
+    }
+
+    // Create FormData object to send files
+    let formData = new FormData();
+    selectedFiles.forEach((file) => {
+        formData.append("images", file); // Append each file with the key "images"
+    });
+
+    try {
+        // Send files to the backend
+        let response = await fetch("/upload", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (response.ok) {
+            // If the response is successful, display the stitched image
+            let blob = await response.blob();
+            let url = URL.createObjectURL(blob);
+            stitchedImage.src = url;
+            stitchedImage.style.display = "block";
+        } else {
+            // Handle errors
+            let errorData = await response.json();
+            alert(`Stitching failed: ${errorData.error}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while uploading the images.");
+    }
+});
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     document.querySelector(".deleteAllBtn").addEventListener("click", function () {
+//         if (confirm("Are you sure you want to delete all images?")) {
+//             fetch("/delete-images", { method: "POST" })
+//                 .then(response => response.json())
+//                 .then(data => alert(data.message))
+//                 .catch(error => console.error("Error:", error));
+//         }
+//     });
+// });
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     document.querySelector(".deleteAllBtn").addEventListener("click", function () {
+//         if (confirm("Are you sure you want to delete all images?")) {
+//             fetch("/delete-images", { method: "POST" })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     alert(data.message);
+                    
+//                     // Remove all elements inside showfileboxElem
+//                     let fileWrapper = document.querySelector(".showfilebox");
+//                     if (fileWrapper) {
+//                         fileWrapper.innerHTML = ""; // Clears all content
+//                     }
+
+//                     // Hide stitched image
+//                     let stitchedImage = document.getElementById("stitchedImage");
+//                     if (stitchedImage) {
+//                         stitchedImage.style.display = "none";
+//                     }
+//                 })
+//                 .catch(error => console.error("Error:", error));
+//         }
+//     });
+// });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector(".deleteAllBtn").addEventListener("click", function () {
+        if (confirm("Are you sure you want to delete all images?")) {
+            fetch("/delete-images", { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    
+                    // Remove all elements inside .filewrapper (all showfilebox elements)
+                    let fileWrapper = document.querySelector("#filewrapper"); // Assuming filewrapper is the container
+                    if (fileWrapper) {
+                        // Select all .showfilebox elements inside .filewrapper
+                        const showFileBoxElems = fileWrapper.querySelectorAll(".showfilebox");
+                        showFileBoxElems.forEach((elem) => {
+                            fileWrapper.removeChild(elem); // Remove each .showfilebox element
+                        });
+                    }
+
+                    // Optionally, hide stitched image if visible
+                    let stitchedImage = document.getElementById("stitchedImage");
+                    if (stitchedImage) {
+                        stitchedImage.style.display = "none"; // Hide the stitched image
+                    }
+
+                    // Optionally, reset the input field
+                    let fileInput = document.getElementById("fileInput");
+                    if (fileInput) {
+                        fileInput.value = ""; // Reset the file input value
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    });
 });

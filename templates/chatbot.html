@@ -97,26 +97,39 @@
     <script>
         function chatApp() {
             return {
-                messages: [{ from: 'bot', text: 'Hi, how can I assist you today? Below is the Frequently Asked Questions.' }],
+                messages: [
+                    {
+                        from: 'bot',
+                        text: 'Hi, how can I assist you today? Below is the Frequently Asked Questions.'
+                    }
+                ],
                 botTyping: false,
-
-                // Method to send message
+    
+                // Method to send a message
                 async sendMessage(inputElement) {
                     const userMessage = inputElement.value;
                     if (userMessage.trim() !== '') {
+                        // Add user's message to the chat
                         this.messages.push({ from: 'user', text: userMessage });
                         inputElement.value = '';
+    
+                        // Show bot typing indicator
                         this.botTyping = true;
-
-                        const response = await this.getBotResponse(userMessage);
-                        this.messages.push({ from: 'bot', text: response });
-                        this.botTyping = false;
-
-                        // Scroll to the latest message
-                        this.scrollToBottom();
+    
+                        // Wait for 1 second before adding the bot's response
+                        setTimeout(async () => {
+                            const response = await this.getBotResponse(userMessage);
+    
+                            // Add bot's response to the chat
+                            this.messages.push({ from: 'bot', text: response });
+                            this.botTyping = false;
+    
+                            // Scroll to the latest message
+                            this.scrollToBottom();
+                        }, 1000); // 1-second delay
                     }
                 },
-
+    
                 // Method to fetch bot response
                 async getBotResponse(userMessage) {
                     const response = await fetch('/chat', {
@@ -129,18 +142,18 @@
                     const data = await response.json();
                     return data.reply;
                 },
-
+    
                 // Method to handle FAQ clicks
                 handleFaqClick(question) {
                     this.sendMessage({ value: question });
                 },
-
+    
                 // Method to scroll to the bottom of the chat
                 scrollToBottom() {
                     const chatBox = document.getElementById('messages');
                     chatBox.scrollTop = chatBox.scrollHeight;
                 },
-
+    
                 // Method to check if FAQ buttons should be shown
                 shouldShowFaqButtons(key) {
                     // Show FAQ buttons only for the first bot or user message
@@ -149,5 +162,6 @@
             };
         }
     </script>
+    
 </body>
 </html>

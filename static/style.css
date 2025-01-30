@@ -877,7 +877,6 @@ canvas {
 .form-container {
     background-color: #ffffff;
     padding: 2rem;
-    border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     max-width: 400px;
     width: 100%;
@@ -887,6 +886,7 @@ canvas {
     opacity: 0; /* Start hidden */
     transform: translateY(50px); /* Move down */
     transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    margin-top: 5vh;
 }
 
 .form-container.visible{
@@ -961,7 +961,7 @@ canvas {
     margin-top: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -972,11 +972,273 @@ canvas {
     width: 1000px;                   /* Set the width of each chart */
     border: 1px solid #ccc;         /* Optional border for better visibility */
     padding: 10px;                  /* Optional padding */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow effect */
     margin: 0 auto;                 /* Center the container horizontally */
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    
+}
+
+.chart-wrapper-realtime.visible{
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+/*------------------------------------------------------------------------------*/
+
+/* Stitching */
+.stitching-sub-header{
+    font-size: 4em;
+    text-align: center;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    margin-top: 25rem; /* Space above the header */
+    color: #083484;
+    font-family: 'Montserrat',sans-serif;
+}
+
+.stitching-sub-header.visible {
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
 }
 
 
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    width: 100%;
+    min-height: 55vh;
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+}
+
+.wrapper.visible{
+    opacity: 1; /* Show the header */
+    transform: translateY(0); /* Move back to original position */
+}
+
+
+.box{
+    max-width: 500px;
+    background-color: #fff;
+    padding: 30px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow effect */
+}
+
+.upload-area-title{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #083484;
+}
+
+.uploadlabel{
+    width: 100%;
+    min-height: 100px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed #083484;
+    cursor: pointer;
+}
+
+.uploadlabel span{
+    font-size: 70px;
+    color: #083484;
+}
+
+.uploadlabel p{
+    color: #083484;
+    font-size: 20px;
+}
+
+.uploaded{
+    margin: 30px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #a5a5a5;
+}
+
+.showfilebox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px 15px;
+    box-shadow: #0000000d 0px 0px 0px 1px,
+    #d1d5db3d 0px 0px 0px 1px inset;
+}
+
+.showfilebox .left{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filetype{
+    background-color: #f05c0c;
+    color: #fff;
+    padding: 5px 15px;
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 700;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+
+.left h3{
+    font-weight: 600;
+    font-size: 18px;
+    color: #292F42;
+    margin: 0;
+}
+
+.right span{
+    background-color:#f05c0c;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+    line-height: 25px;
+    display: inline-block;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+
+/* Center the submit button container */
+.submitBtnInputStitchingContainer {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    gap: 1.5rem;
+}
+
+/* Submit Button */
+.submitBtnInputStitching {
+    margin-bottom: 5rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow */
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    cursor: pointer;
+}
+
+/* Button hover effect */
+.submitBtnInputStitching:active {
+    transform: translateY(0.225em); /* Corrected from translate to transform */
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+}
+
+
+.deleteAllBtn{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+}
+
+
+/* Submit Button */
+.deleteAllBtn{
+    margin-bottom: 5rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow */
+    font: inherit;
+    background-color: #f05c0c;
+    border: 0;
+    color: #fff;
+    border-radius: 0.5em;
+    font-size: 1.1rem;
+    padding: 0.375em 1em;
+    font-weight: 600;
+    box-shadow: inset 0 0.0625em 0 0 #f05c0c, 0 0.0625em 0 0 #efefef,
+      0 0.125em 0 0 #ececec, 0 0.25em 0 0 #e0e0e0, 0 0.3125em 0 0 #dedede,
+      0 0.375em 0 0 #dcdcdc, 0 0.425em 0 0 #cacaca, 0 0.425em 0.5em 0 #cecece;
+    cursor: pointer;
+}
+
+/* Button hover effect */
+.deleteAllBtn:active {
+    transform: translateY(0.225em); /* Corrected from translate to transform */
+    box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,
+      0 0.0625em 0 0 #ececec, 0 0.125em 0 0 #e0e0e0, 0 0.125em 0 0 #dedede,
+      0 0.2em 0 0 #dcdcdc, 0 0.225em 0 0 #cacaca, 0 0.225em 0.375em 0 #cecece;
+}
+
+/* Initially hidden with smooth animation */
+.resultContainer {
+    opacity: 0; /* Start hidden */
+    transform: translateY(50px); /* Move down */
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Animation */
+    text-align: center; /* Center text and image */
+    margin-top: 2rem; /* Add spacing */
+}
+
+/* When the class is added, make it visible */
+.resultContainer.visible {
+    opacity: 1; /* Show the container */
+    transform: translateY(0); /* Move back to original position */
+}
+
+/* Style the heading */
+.resultContainer h3 {
+    color: #083484; /* Change text color */
+    font-size: 1.5rem; /* Adjust size if needed */
+    font-weight: bold;
+}
+
+/* Container for the image */
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, white 60%, #ffffff 100%); /* White in center */
+    padding: 1rem; /* Space inside */
+    width: 100%; /* Adjust width */
+    max-width: 700px; /* Prevents it from being too large */
+    margin: 1rem auto; /* Centering */
+    min-height: 300px; /* Ensure visibility even when image is hidden */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+
+}
+
+/* Ensure the image stays centered */
+#stitchedImage {
+    max-width: 100%;
+    max-height: 100%;
+    display: none; /* Initially hidden */
+}
 
 
 
@@ -1152,6 +1414,7 @@ footer .right p{
         padding: 20px; /* Optional padding */
     }
     
+    
   
 
 }
@@ -1165,6 +1428,7 @@ footer .right p{
     
     header .astarlogo{
         grid-area: 1/1/2/2;
+        
     }
 
     footer{

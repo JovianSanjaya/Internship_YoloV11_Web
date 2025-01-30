@@ -13,17 +13,17 @@ from tensorflow import keras
 import pickle
 import json
 import tempfile
-
+import subprocess
+import glob
 
 app = Flask(__name__)
-
 
 
 class Detection:
     def __init__(self):
 
         # Set the model path andonfidence threshold
-        yolov8_model_path = "./object_detection/best.pt"  # Update to your model path
+        yolov8_model_path = "./object_detection/train_model.pt"  # Update to your model path
 
         # Initialize the AutoDetectionModel
         self.model = AutoDetectionModel.from_pretrained(
@@ -43,12 +43,12 @@ class Detection:
             image=image,
             detection_model=self.model,  # Use the initialized AutoDetectionModel
             slice_height=256,
-            slice_width=256,
-            overlap_height_ratio=0.2,
-            overlap_width_ratio=0.2,
+            slice_width= 256,
+            overlap_height_ratio=0.5,
+            overlap_width_ratio=0.5,
             postprocess_type='NMS',
             postprocess_match_metric='IOU',
-            postprocess_match_threshold=0.1,
+            postprocess_match_threshold=0.3,
             postprocess_class_agnostic=True
         )
 
@@ -90,7 +90,6 @@ def apply_detections():
             output_filename = os.path.join(temp_dir, "prediction_visual.png")
             annotation_filename = os.path.join(temp_dir, "annotations.json")
 
-        
 
             # Save visualized detection results to an image file
             results.export_visuals(
@@ -98,8 +97,6 @@ def apply_detections():
                 text_size=0.4,
                 rect_th=2
             )
-
-           
 
             # Load the visualized image into a BytesIO buffer
             img_buffer = io.BytesIO()
@@ -208,5 +205,134 @@ def chat():
 
 
 
-if __name__ == '__main__':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # Directories for images
+# UPLOAD_FOLDER = "./stitching/img_dir/"
+# OUTPUT_FOLDER = "./stitching/"
+# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+# @app.route("/upload", methods=["POST"])
+# def upload_files():
+#     """
+#     Receive images from the frontend, save them, and run the stitching command.
+#     """
+#     if "images" not in request.files:
+#         return jsonify({"error": "No files uploaded"}), 400
+
+#     uploaded_files = request.files.getlist("images")
+#     if len(uploaded_files) == 0:
+#         return jsonify({"error": "No files selected"}), 400
+
+#     # Save each uploaded file
+#     file_paths = []
+#     for i, image in enumerate(uploaded_files):
+#         file_path = os.path.join(UPLOAD_FOLDER, f"Image_{i+1}.jpg")
+#         image.save(file_path)
+#         file_paths.append(file_path)
+
+#     # Run the stitching command using the saved images
+#     command = f"stitch {' '.join(file_paths)}"
+#     try:
+#         subprocess.run(command, shell=True, check=True)
+
+#         # Check if the stitched result exists in OUTPUT_FOLDER
+#         result_image_path = os.path.join(OUTPUT_FOLDER, "result.jpg")
+
+#         # If not found, check if it's saved in `./`
+#         if not os.path.exists(result_image_path):
+#             result_image_path = os.path.join("./", "result.jpg")  # Check in root folder
+
+#         if os.path.exists(result_image_path):
+#             return send_file(result_image_path, mimetype="image/jpg")
+
+#         return jsonify({"error": "Stitched image not found."}), 500
+
+#     except subprocess.CalledProcessError as e:
+#         return jsonify({"error": f"Error executing stitch: {str(e)}"}), 500
+    
+
+
+
+# Directories for images
+UPLOAD_FOLDER = "./stitching/img_dir/"
+OUTPUT_FOLDER = "./stitching/"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+@app.route("/upload", methods=["POST"])
+def upload_files():
+    """
+    Receive images from the frontend, save them, and run the stitching command.
+    """
+    if "images" not in request.files:
+        return jsonify({"error": "No files uploaded"}), 400
+
+    uploaded_files = request.files.getlist("images")  # Get all files with the key "images"
+    if len(uploaded_files) == 0:
+        return jsonify({"error": "No files selected"}), 400
+
+    # Save each uploaded file
+    file_paths = []
+    for i, image in enumerate(uploaded_files):
+        if image.filename == "":
+            continue  # Skip empty files
+        file_path = os.path.join(UPLOAD_FOLDER, f"Image_{i+1}.jpg")
+        image.save(file_path)
+        file_paths.append(file_path)
+
+    # Run the stitching command using the saved images
+    command = f"stitch {' '.join(file_paths)}"
+    try:
+        subprocess.run(command, shell=True, check=True)
+
+        # Check if the stitched result exists in OUTPUT_FOLDER
+        result_image_path = os.path.join(OUTPUT_FOLDER, "result.jpg")
+
+        # If not found, check if it's saved in `./`
+        if not os.path.exists(result_image_path):
+            result_image_path = os.path.join("./", "result.jpg")  # Check in root folder
+
+        if os.path.exists(result_image_path):
+            return send_file(result_image_path, mimetype="image/jpg")
+
+        return jsonify({"error": "Stitched image not found."}), 500
+
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": f"Error executing stitch: {str(e)}"}), 500
+
+
+
+@app.route('/delete-images', methods=['POST'])
+def delete_images():
+    img_dir = "./stitching/img_dir/*"
+    result_file = "./result.jpg"
+
+    # Delete all images in the directory
+    for file in glob.glob(img_dir):
+        os.remove(file)
+
+    # Delete result file if it exists
+    if os.path.exists(result_file):
+        os.remove(result_file)
+
+    return jsonify({"message": "All images deleted successfully."})
+
+
+if __name__ == "__main__":
     app.run(debug=True)
+
+
