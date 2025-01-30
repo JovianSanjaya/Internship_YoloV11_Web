@@ -88,25 +88,14 @@ link5.addEventListener('click', ()=>{
 
 
 
-// Function to display the image from a file input or clipboard
-function displayImage(event) {
-    const image = document.getElementById('input-image');
 
-    // Check if files are selected or pasted
-    const file = event.target.files ? event.target.files[0] : null; // If it's from input files
-    if (file) {
-        image.src = URL.createObjectURL(file); // If file input, create object URL
-        image.onload = () => {
-            URL.revokeObjectURL(image.src); // Clean up the object URL after loading
-        };
-        image.style.display = "block"; // Show image when it's ready
-    }
-}
 
-// Listen for the paste event (clipboard image paste)
+
+
+// Handle image paste from clipboard
 document.addEventListener('paste', function (event) {
     const clipboardItems = event.clipboardData.items;
-    
+
     // Look for image data in the clipboard
     for (let i = 0; i < clipboardItems.length; i++) {
         const item = clipboardItems[i];
@@ -114,17 +103,47 @@ document.addEventListener('paste', function (event) {
         if (item.type.indexOf('image') === 0) {
             const file = item.getAsFile(); // Get the image file from clipboard
 
-            const image = document.getElementById('input-image');
-            image.src = URL.createObjectURL(file); // Create object URL from the clipboard image
-            image.onload = () => {
-                URL.revokeObjectURL(image.src); // Clean up the object URL after loading
-            };
-            image.style.display = "block"; // Show image when it's ready
+            // Update the file input with the clipboard image
+            const imageInput = document.getElementById('image');
+            const dataTransfer = new DataTransfer(); // Create a new DataTransfer object
+
+            dataTransfer.items.add(file); // Add the file to the DataTransfer object
+            imageInput.files = dataTransfer.files; // Override the files in the file input
+
+            // Trigger the onchange event manually to process the image
+            const event = new Event('change');
+            imageInput.dispatchEvent(event);
+
+            // Also update the preview image
+            displayImage({ target: imageInput });
         }
     }
 });
 
-window.displayImage = displayImage; // Expose displayImage globally for use
+// Handle the image selection from file input (when a file is chosen)
+function displayImage(event) {
+    const imageInput = event.target;
+    if (imageInput.files.length === 0) {
+        alert("Please select an image to upload.");
+        return;
+    }
+
+    const image = document.getElementById('input-image');
+    const file = imageInput.files[0];
+
+    image.src = URL.createObjectURL(file); // Create object URL from the selected file
+    image.onload = () => {
+        URL.revokeObjectURL(image.src); // Clean up the object URL after loading
+    };
+
+    image.style.display = "block"; // Show the image preview
+}
+
+
+
+
+
+
 
 
 
