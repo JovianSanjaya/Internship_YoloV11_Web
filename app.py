@@ -27,10 +27,10 @@ class Detection:
 
         # Initialize the AutoDetectionModel
         self.model = AutoDetectionModel.from_pretrained(
-            model_type='yolov8',  # Use 'yolov8' if that’s what you intended
+            model_type='yolov8',  
             model_path=yolov8_model_path,
             confidence_threshold=0.3,
-            device="cuda:0"  # Change to 'cuda:0' if you are using a GPU
+            device="cuda:0"  
         )
 
         self.class_labels = {0: 'Nicks', 1: 'Dents', 2: 'Scratches', 3: 'Pittings'}

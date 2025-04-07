@@ -1,3 +1,6 @@
+https://github.com/OpenStitching/stitching
+
+
 # stitching
 
 A Python package for fast and robust Image Stitching.

@@ -590,20 +590,17 @@ function areachartconfidence() {
     const jsonData = annotationJSON;
     const defectAreas = { "Nicks": [], "Dents": [], "Scratches": [], "Pittings": [] };
 
-    // Collect areas for each defect type
     jsonData.forEach(item => {
         if (item.category_name in defectAreas) {
             defectAreas[item.category_name].push(item.area);
         }
     });
 
-    // Destroy all previous chart instances
     Object.keys(chartInstancesConfidence).forEach(chartId => {
         chartInstancesConfidence[chartId].destroy();
     });
-    chartInstancesConfidence = {}; // Clear the chartInstancesConfidence object
+    chartInstancesConfidence = {}; 
 
-    // Create individual charts for each defect type
     const defectTypes = Object.keys(defectAreas);
     defectTypes.forEach((defectType, index) => {
         if (defectAreas[defectType].length > 0) { // Only create a chart if there are areas
