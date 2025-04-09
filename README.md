@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 ### 4. Run Flask Application
 ```bash 
-pythn app.py
+python app.py
 ```
 
 ---
@@ -56,5 +56,10 @@ This folder contains everything related about the chatbot
 
 ## 5. static
 This folder contains the images used, javascript, and css files. For now, only the ai chatbot used Tailwind CSS while the other page use vanilla CSS which is stated in style.css
+
+## 6. changing color of the prediction
+find the cv.py file
+just change the first four colours
+![alt text](image.png)
 
 By Jovian
