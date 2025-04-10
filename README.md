@@ -62,4 +62,9 @@ find the cv.py file
 just change the first four colours
 ![alt text](image.png)
 
+
+## 7. Firebase API
+Put your firebase api under scripts.js
+![alt text](image-1.png)
+
 By Jovian
