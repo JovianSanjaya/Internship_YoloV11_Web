@@ -6,14 +6,14 @@ import { getDatabase, ref as dbRef, set } from "https://www.gstatic.com/firebase
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBYYHgbI13ckuX7eoHji0YggOkgcvAvZnI",
-    authDomain: "sp-a-star-internship.firebaseapp.com",
-    databaseURL: "https://sp-a-star-internship-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "sp-a-star-internship",
-    storageBucket: "sp-a-star-internship.appspot.com",
-    messagingSenderId: "8071237803",
-    appId: "1:8071237803:web:e9b6d608c2e72c02f667ee",
-    measurementId: "G-V6CX4RE22S"
+    // apiKey: "",
+    // authDomain: "",
+    // databaseURL: "",
+    // projectId: "",
+    // storageBucket: "",
+    // messagingSenderId: "",
+    // appId: "",
+    // measurementId: ""
 };
 
 
